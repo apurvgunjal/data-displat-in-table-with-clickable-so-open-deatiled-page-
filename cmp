@@ -1,0 +1,33 @@
+/* Link will be create below  */ 
+
+<td><a href="{!'/'+opp.Care_Assessment__r.Id}">{!opp.Care_Assessment__r.Name}</a></td>
+
+/* Link will be create Above  */
+
+
+
+/* Whole Lightning Components  */
+
+<aura:component controller="Communityuseropp" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+    <aura:attribute name="opps" type="Object[]" default="[]" />
+    <div class="slds-text-align_center" >
+    <Strong> Below Care Assessments is owned by you </Strong>
+    </div>
+    <table class="slds-table slds-table--bordered slds-table--striped">
+        <thead>
+            <tr>
+                <th scope="col"><span class="slds-truncate">Care Assessment Name</span></th>
+                 <th scope="col"><span class="slds-truncate">Date</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.opps}" var="opp" >
+                <tr> 
+                  <td><a href="{!'/'+opp.Care_Assessment__r.Id}">{!opp.Care_Assessment__r.Name}</a></td>
+               	<td>{!opp.Care_Assessment__r.Date__c}</td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>
