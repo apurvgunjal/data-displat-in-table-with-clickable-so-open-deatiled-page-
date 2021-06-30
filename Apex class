@@ -1,0 +1,21 @@
+public without sharing class Communityuseropp {
+    
+    @AuraEnabled
+    public static list<Provider__c> getOpportunity(){
+        Id UserId = UserInfo.getUserId();
+        List<user> users = [select contactId from user where id=:userId and contactId != null];
+        Id accountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Domiciliary Care Provider').getRecordTypeId();
+       system.debug('accountRecordTypeId'+accountRecordTypeId);
+        list<Provider__c> careAssessmentlst = new list<Provider__c>();  
+        if(users.size()>0) {
+            /*opplst =[SELECT Opportunity__r.name,Opportunity__r.StageName,Opportunity__r.CloseDate FROM Provider__c where Contact__r.Id =:users[0].contactId
+                    AND (Is_Awarded__c=:False OR  Opportunity__r.Selected_Provider__c =: users[0].contactId)];  */
+            careAssessmentlst =[select Care_Assessment__r.Name,Care_Assessment__r.Date__c from Provider__c 
+                     where Care_Assessment__r.Care_Receiver__r.RecordTypeId =:accountRecordTypeId];
+            system.debug('careAssessmentlst--->84'+careAssessmentlst);
+        }
+        return careAssessmentlst;
+        
+    }
+    
+}
